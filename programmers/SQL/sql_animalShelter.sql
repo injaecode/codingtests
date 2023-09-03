@@ -106,3 +106,8 @@ SELECT animal_type, count(animal_type) count
 from animal_ins 
 group by animal_type 
 order by animal_type;
+
+# 보호소에서 중성화한 동물
+SELECT O.animal_id, O.animal_type, O.name 
+from animal_ins I join animal_outs O on I.animal_id = O.animal_id 
+where substr(I.sex_upon_intake,1,2) != substr(O.sex_upon_outcome,1,2);
