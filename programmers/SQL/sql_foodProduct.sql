@@ -16,3 +16,12 @@ SELECT product_id, product_name, product_cd, category, price
 from food_product 
 where price = (select max(price) 
 			from food_product);
+
+
+#5월 식품들의 총매출 조회하기
+SELECT P.product_id, P.product_name, sum(O.amount)*P.price total_sales
+from food_product P join food_order O
+on P.product_id = O.product_id
+where O.produce_date between '2022-05-01' and '2022-05-31'
+group by O.product_id
+order by total_sales desc, O.product_id

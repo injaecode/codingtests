@@ -111,3 +111,27 @@ order by animal_type;
 SELECT O.animal_id, O.animal_type, O.name 
 from animal_ins I join animal_outs O on I.animal_id = O.animal_id 
 where substr(I.sex_upon_intake,1,2) != substr(O.sex_upon_outcome,1,2);
+
+# 없어진 기록 찾기
+SELECT O.animal_id, O.name 
+from animal_ins I right join animal_outs O 
+on I.animal_id = O.animal_id 
+where I.animal_id is null 
+order by I.animal_id;
+
+# 있었는데요 없었습니다
+SELECT I.animal_id, I.name 
+from animal_ins I
+where I.datetime > 
+    (select O.datetime
+    from animal_outs O
+    where I.animal_id=O.animal_id)
+order by datetime; 
+
+# NULL 처리하기
+SELECT animal_type, case 
+						when name is null 
+						then 'No name' 
+                        else name 
+                        end as name, sex_upon_intake 
+from animal_ins;
