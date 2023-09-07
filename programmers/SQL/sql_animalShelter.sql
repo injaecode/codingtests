@@ -60,6 +60,11 @@ from animal_ins;
 SELECT min(datetime) 시간 
 from animal_ins;
 
+# 루시와 엘라 찾기
+SELECT animal_id, name, sex_upon_intake 
+from animal_ins
+where name in ("Lucy", "Ella", "Pickle", "Rogan", "Sabrina", "Mitty");
+
 # 동명 동물 수 찾기
 SELECT name, count(animal_id) count 
 from animal_ins 
@@ -135,3 +140,10 @@ SELECT animal_type, case
                         else name 
                         end as name, sex_upon_intake 
 from animal_ins;
+
+# 오랜 기간 보호한 동물(1)
+SELECT name, datetime
+from animal_ins I 
+where I.animal_id not in (select O.animal_id from animal_outs O)
+order by I.datetime 
+limit 3
