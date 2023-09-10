@@ -9,3 +9,10 @@ SELECT round(avg(daily_fee)) as average_fee
 from car_rental_company_car 
 group by car_type 
 having car_type='SUV';
+
+#자동차 종류 별 특정 옵션이 포함된 자동차 수 구하기
+SELECT car_type, count(car_id) cars
+from car_rental_company_car
+where options like '%시트%'
+group by car_type
+order by car_type

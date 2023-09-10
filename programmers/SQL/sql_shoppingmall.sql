@@ -8,6 +8,12 @@ SELECT count(user_id)
 from user_info 
 where age between 20 and 29 
 	and joined like '2021%';
+
+# 3월에 태어난 여성 회원 목록 출력하기
+SELECT member_id, member_name, gender , date_format(date_of_birth , '%Y-%m-%d') date_of_birth
+from member_profile
+where tlno is not null and gender = 'W' and month(date_of_birth) = '3'
+order by member_id;
     
 # 가장 비싼 상품 구하기
 SELECT max(price) as max_price 
@@ -33,4 +39,12 @@ SELECT case when price < 10000 then '0'
             else  '90000' end price_group, count(product_id) products
 from product
 group by price_group
-order by price_group
+order by price_group;
+
+# 년, 월, 성별 별 상품 구매 회원 수 구하기
+SELECT year(O.sales_date) year, month(O.sales_date) month, U.gender, count(distinct O.user_id) users
+from user_info U join online_sale O
+on U.user_id = O.user_id
+where U.gender is not null
+group by year, month, U.gender
+order by year, month, U.gender
