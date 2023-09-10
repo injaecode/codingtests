@@ -47,4 +47,12 @@ from user_info U join online_sale O
 on U.user_id = O.user_id
 where U.gender is not null
 group by year, month, U.gender
-order by year, month, U.gender
+order by year, month, U.gender;
+
+# 상품 별 오프라인 매출 구하기
+
+SELECT P.product_code, sum(P.price*O.sales_amount) sales
+from product P join offline_sale O
+on P.product_id = O.product_id
+group by P.product_code
+order by sales desc, P.product_code;

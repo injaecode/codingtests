@@ -8,3 +8,12 @@ on a.board_id = b.board_id
 where a.created_date 
 between '2022-10-01' and '2022-10-31' 
 order by B.created_date, A.title;
+
+# 조건에 맞는 사용자와 총 거래금액 조회하기
+SELECT user_id, nickname, sum(price) total_sales
+from used_goods_board B join used_goods_user U
+on B.writer_id = U.user_id
+where status = 'DONE'
+group by U.user_id
+having sum(price)>=700000
+order by total_sales;
