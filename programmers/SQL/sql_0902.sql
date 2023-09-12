@@ -1,14 +1,9 @@
-
-# 조건에 부합하는 중고거래 댓글 조회하기
-SELECT A.title, A.board_id, 
-	B.reply_id, B.writer_id, B.contents, 
-    date_format(B.created_date, '%Y-%m-%d') as created_date 
-from used_goods_board A join used_goods_reply B 
-on a.board_id = b.board_id 
-where a.created_date 
-between '2022-10-01' and '2022-10-31' 
-order by B.created_date, A.title;
-
+SELECT I.rest_id, I.rest_name, I.food_type, I.favorites, I.address, round(avg(R.review_score),2) score
+from rest_info I join rest_review R
+on I.rest_id = R.rest_id
+where address like "서울%"
+group by I.rest_id
+order by score desc, I.favorites desc;
 
 # 흉부외과 또는 일반외과 의사 목록 출력하기
 SELECT dr_name, dr_id, mcdp_cd, date_format(hire_ymd, '%Y-%m-%d') as hire_ymd 

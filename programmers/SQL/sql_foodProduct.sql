@@ -17,7 +17,6 @@ from food_product
 where price = (select max(price) 
 			from food_product);
 
-
 #5월 식품들의 총매출 조회하기
 SELECT P.product_id, P.product_name, sum(O.amount)*P.price total_sales
 from food_product P join food_order O
