@@ -16,3 +16,10 @@ from car_rental_company_car
 where options like '%시트%'
 group by car_type
 order by car_type
+
+# 대여 기록이 존재하는 자동차 리스트 구하기
+SELECT distinct R.car_id
+from car_rental_company_rental_history H join car_rental_company_car R
+on R.car_id = H.car_id
+where R.car_type='세단' and month(start_date) = 10
+order by R.car_id desc;
